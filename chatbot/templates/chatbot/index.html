@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QA Chatbot</title>
+    <link rel="stylesheet" href="{% static 'chatbot/css/style.css' %}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+</head>
+<body>
+  <div class="card-header bg-success text-white"><b>Welcome, {{user.username}}</b>   <a style="color: beige; position: absolute; right: 30px;" href="{% url "logoutt" %}">Logout</a></div>
+ <br>
+ <br>
+  <h1>Bukky AI- your climate change QA chatbot</h1>
+    
+
+<div class="chat-container" id="chat-container">
+  <div class="card flex-grow-1">
+
+    <div class="card-body messages-box">
+      
+      <ul class="list-unstyled messages-list">
+        
+        <li class="message received">
+          <div class="message-text">
+            <div class="message-sender">
+              <b>Bukky AI</b>
+            </div>
+            <div class="message-content">
+              Hi {{user.username}}, I am Bukky, your AI assistant. You can ask me anything about Climate Change.
+            </div>
+          </div>
+        
+
+{% for chat in chats %}
+          {% if chat.user == request.user %}
+
+            <li class="message sent">
+          <div class="message-text">
+            <div class="message-sender">
+              <b>You</b>
+            </div>
+            <div class="message-content">
+              {{chat.message | safe}}
+            </div>
+          </div>
+        </li>
+
+        <li class="message received">
+          <div class="message-text">
+            <div class="message-sender">
+              <b>Bukky AI</b>
+            </div>
+            <div class="message-content">
+              {{chat.response | safe}}
+            </div>
+          </div>
+        </li>
+
+          {% endif %}
+        {% endfor %}
+        
+      </ul>
+      
+    </div>
+    <br><br>
+    <br><br>
+    <br><br>
+  </div>
+  <form class="message-form" method="POST">
+    {% csrf_token %}
+    <div class="input-group">
+      <input type="text" class="form-control message-input" placeholder="Type your message...">
+      <div class="input-group-append">
+        <button type="submit" class="btn btn-success btn-send">Send</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="{% static 'chatbot/js/script.js' %}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</body>
+</html>
