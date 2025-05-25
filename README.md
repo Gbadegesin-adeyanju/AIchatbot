@@ -15,6 +15,9 @@ venv_name\Scripts\activate.bat
 # Install required packages
 pip install -r requirements.txt
 
+# Environment variables 
+pip install dotenv
+
 # Apply migrations
 python manage.py makemigrations <br>
 python manage.py migrate
