@@ -1,5 +1,4 @@
 # AIchatbot
-# Fileconverter
 
 # Create vitual environment
 python -m venv venv_name
